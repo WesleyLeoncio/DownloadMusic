@@ -1,0 +1,67 @@
+﻿<Window x:Class="DownloadMusic.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DownloadMusic"
+        mc:Ignorable="d"
+        Title="YouTube Music Download" Height="450" Width="650">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>   <!-- Pasta destino -->
+            <RowDefinition Height="Auto"/>   <!-- URL -->
+            <RowDefinition Height="Auto"/>   <!-- Progresso -->
+            <RowDefinition Height="*"/>      <!-- Lista -->
+            <RowDefinition Height="Auto"/>   <!-- Botão baixar -->
+        </Grid.RowDefinitions>
+        <!-- Pasta destino -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <Label Content="Pasta de destino:" Width="120" VerticalAlignment="Center"/>
+            <TextBox x:Name="TxtSavePath" Width="320" Height="25" Margin="0,0,10,0"/>
+            <Button Content="📁 Pasta" Width="80" Click="BtnEscolherPasta_Click" /> <!-- Falta evento -->
+        </StackPanel>
+        
+        <!-- URL do vídeo/playlist -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+            <Label Content="URL Música/Playlist:" Width="120" VerticalAlignment="Center"/>
+            <TextBox x:Name="TxtUrl" Width="320" Height="25" Margin="0,0,10,0"/>
+            <Button Content="🔍 Buscar" Width="80" Click="BtnBuscarVideos_Click"/>
+        </StackPanel>
+        
+        <!-- Tabela de músicas -->
+        <DataGrid x:Name="DgvMusicas"
+                  Grid.Row="3"
+                  ItemsSource="{Binding VideoList}" 
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  Margin="0,0,0,10"
+                  Height="400">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="80"/>
+                <DataGridTextColumn Header="Titulo" Binding="{Binding Titulo}" Width="*"/>
+                <DataGridTemplateColumn Header="Ações" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="🗑 Remover" Click="BtnRemover_Click" Tag="{Binding}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <!-- Botão baixar -->
+        <Button x:Name="BtnDownload"
+                Grid.Row="4"
+                Content="⬇ Baixar músicas"
+                Height="40"
+                FontWeight="Bold"
+                Background="DodgerBlue"
+                Foreground="White"
+                BorderBrush="DarkBlue"
+                Click="BtnDownload_Click"
+                IsEnabled="False"/>
+    </Grid>
+</Window>

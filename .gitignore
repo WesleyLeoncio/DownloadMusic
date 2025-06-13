@@ -1,0 +1,66 @@
+## Ignore files for WPF (.NET) projects
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.vsp
+*.vspscc
+*.vssscc
+*.pidb
+*.pdb
+*.cache
+*.mdb
+*.opendb
+*.VC.db
+*.vscode/
+*.launch.json
+
+## Rider-specific
+.idea/
+*.sln.iml
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+[Bb]uild[Ll]og.*
+*.log
+
+## NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+*.nuspec
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## User-specific files
+*.userprefs
+*.csproj.user
+
+## Visual Studio folder (if used alongside Rider)
+.vs/
+
+
+## Temporary files
+*.tmp
+*.bak
+*.old
+*.orig
+
+## Resharper (caso esteja usando)
+_ReSharper*/
+*.DotSettings.user
+
+## Windows thumbnail cache
+Thumbs.db
+ehthumbs.db
+
+## Mac system files
+.DS_Store
