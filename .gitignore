@@ -14,7 +14,8 @@ artifacts/
 *.tmp
 *.bak
 
-# REMOVIDO: *.exe para permitir ffmpeg.exe
+# Ignora executáveis globalmente
+*.exe
 
 ## === NuGet ===
 *.nupkg
@@ -47,7 +48,9 @@ ehthumbs.db
 *.opendb
 *.VC.db
 
-## === FFmpeg: garantir que os arquivos sejam mantidos ===
-!Libs/
+# Mas permite os executáveis dentro de Libs/FFmpeg
+!Libs/FFmpeg/**/*.exe
+
+# Permite todo conteúdo da pasta Libs/FFmpeg
 !Libs/FFmpeg/
 !Libs/FFmpeg/**
