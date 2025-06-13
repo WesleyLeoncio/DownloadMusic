@@ -1,28 +1,31 @@
-# === Build artifacts e pastas bin e obj dentro da pasta interna DownloadMusic ===
-DownloadMusic/DownloadMusic/bin/
-DownloadMusic/DownloadMusic/obj/
-DownloadMusic/DownloadMusic/[Dd]ebug/
-DownloadMusic/DownloadMusic/[Rr]elease/
-DownloadMusic/DownloadMusic/x64/
-DownloadMusic/DownloadMusic/x86/
-DownloadMusic/DownloadMusic/build/
-DownloadMusic/DownloadMusic/artifacts/
-DownloadMusic/DownloadMusic/*.dll
-DownloadMusic/DownloadMusic/*.pdb
-DownloadMusic/DownloadMusic/*.cache
-DownloadMusic/DownloadMusic/*.log
-DownloadMusic/DownloadMusic/*.tmp
-DownloadMusic/DownloadMusic/*.bak
+# === Build artifacts ===
+**/bin/
+**/obj/
+**/[Dd]ebug/
+**/[Rr]elease/
+**/x64/
+**/x86/
+**/build/
+**/artifacts/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+*.tmp
+*.bak
 
 # === NuGet ===
-DownloadMusic/DownloadMusic/packages/
-DownloadMusic/DownloadMusic/.nuget/
-DownloadMusic/DownloadMusic/project.lock.json
-DownloadMusic/DownloadMusic/project.fragment.lock.json
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+project.lock.json
+project.fragment.lock.json
 
 # === IDE settings ===
+.vs/
 .idea/
-DownloadMusic/DownloadMusic/.idea/
 *.suo
 *.user
 *.csproj.user
@@ -43,7 +46,7 @@ ehthumbs.db
 *.opendb
 *.VC.db
 
-# === FFmpeg: garantir que os arquivos dentro de Libs sejam mantidos ===
-!DownloadMusic/DownloadMusic/Libs/
-!DownloadMusic/DownloadMusic/Libs/FFmpeg/
-!DownloadMusic/DownloadMusic/Libs/FFmpeg/**
+# === FFmpeg: manter apenas os originais na pasta Libs ===
+!DownloadMusic/Libs/
+!DownloadMusic/Libs/FFmpeg/
+!DownloadMusic/Libs/FFmpeg/**
