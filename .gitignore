@@ -1,56 +1,49 @@
-## === Build artifacts ===
-bin/
-obj/
-[Dd]ebug/
-[Rr]elease/
-x64/
-x86/
-build/
-artifacts/
-*.dll
-*.pdb
-*.cache
-*.log
-*.tmp
-*.bak
+# === Build artifacts e pastas bin e obj dentro da pasta interna DownloadMusic ===
+DownloadMusic/DownloadMusic/bin/
+DownloadMusic/DownloadMusic/obj/
+DownloadMusic/DownloadMusic/[Dd]ebug/
+DownloadMusic/DownloadMusic/[Rr]elease/
+DownloadMusic/DownloadMusic/x64/
+DownloadMusic/DownloadMusic/x86/
+DownloadMusic/DownloadMusic/build/
+DownloadMusic/DownloadMusic/artifacts/
+DownloadMusic/DownloadMusic/*.dll
+DownloadMusic/DownloadMusic/*.pdb
+DownloadMusic/DownloadMusic/*.cache
+DownloadMusic/DownloadMusic/*.log
+DownloadMusic/DownloadMusic/*.tmp
+DownloadMusic/DownloadMusic/*.bak
 
-# Ignora executáveis globalmente
-*.exe
+# === NuGet ===
+DownloadMusic/DownloadMusic/packages/
+DownloadMusic/DownloadMusic/.nuget/
+DownloadMusic/DownloadMusic/project.lock.json
+DownloadMusic/DownloadMusic/project.fragment.lock.json
 
-## === NuGet ===
-*.nupkg
-*.snupkg
-packages/
-.nuget/
-project.lock.json
-project.fragment.lock.json
-
-## === IDE settings ===
-.vs/
+# === IDE settings ===
 .idea/
+DownloadMusic/DownloadMusic/.idea/
 *.suo
 *.user
 *.csproj.user
 *.sln.docstates
 *.sln.iml
 
-## === Resharper ===
+# === Resharper ===
 _ReSharper*/
 *.DotSettings.user
 
-## === OS generated ===
+# === OS generated ===
 .DS_Store
 Thumbs.db
 ehthumbs.db
 
-## === Rider launch ===
+# === Rider launch ===
 *.pidb
 *.opendb
 *.VC.db
 
-# Mas permite os executáveis dentro de Libs/FFmpeg
-!Libs/FFmpeg/**/*.exe
-
-# Permite todo conteúdo da pasta Libs/FFmpeg
-!Libs/FFmpeg/
-!Libs/FFmpeg/**
+# === FFmpeg: garantir que os arquivos dentro de Libs sejam mantidos ===
+!DownloadMusic/DownloadMusic/Libs/
+!DownloadMusic/DownloadMusic/Libs/FFmpeg/
+!DownloadMusic/DownloadMusic/Libs/FFmpeg/**
