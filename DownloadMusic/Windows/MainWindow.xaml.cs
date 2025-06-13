@@ -26,7 +26,7 @@ public partial class MainWindow : Window
         InitializeComponent();
         DataContext = this; 
     }
-    private void BtnEscolherPasta_Click(object sender, RoutedEventArgs e)
+    private void BtnEscolherPasta_Click(object sender, RoutedEventArgs e) //TODO TESTE
     {
         var dialog = new VistaFolderBrowserDialog();
 
