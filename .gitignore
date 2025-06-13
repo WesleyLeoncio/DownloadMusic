@@ -1,4 +1,4 @@
-## Ignore files for WPF (.NET) projects
+## WPF (.NET) build artifacts
 bin/
 obj/
 *.user
@@ -14,14 +14,8 @@ obj/
 *.mdb
 *.opendb
 *.VC.db
-*.vscode/
-*.launch.json
 
-## Rider-specific
-.idea/
-*.sln.iml
-
-## Build results
+## Common build folders
 [Dd]ebug/
 [Rr]elease/
 x64/
@@ -40,13 +34,13 @@ project.lock.json
 project.fragment.lock.json
 artifacts/
 
-## User-specific files
-*.userprefs
-*.csproj.user
+## Rider-specific
+.idea/
+*.sln.iml
 
-## Visual Studio folder (if used alongside Rider)
+## Visual Studio
 .vs/
-
+*.csproj.user
 
 ## Temporary files
 *.tmp
@@ -54,7 +48,7 @@ artifacts/
 *.old
 *.orig
 
-## Resharper (caso esteja usando)
+## Resharper
 _ReSharper*/
 *.DotSettings.user
 
@@ -64,3 +58,7 @@ ehthumbs.db
 
 ## Mac system files
 .DS_Store
+
+## ----- EXCEÇÕES: Sempre manter a pasta Libs -----
+!Libs/
+!Libs/**
