@@ -1,64 +1,52 @@
-## WPF (.NET) build artifacts
+## === Build artifacts ===
 bin/
 obj/
-*.user
-*.suo
-*.userosscache
-*.sln.docstates
-*.vsp
-*.vspscc
-*.vssscc
-*.pidb
-*.pdb
-*.cache
-*.mdb
-*.opendb
-*.VC.db
-
-## Common build folders
 [Dd]ebug/
 [Rr]elease/
 x64/
 x86/
 build/
-[Bb]uild[Ll]og.*
-*.log
-
-## NuGet
-*.nupkg
-*.snupkg
-.nuget/
-packages/
-*.nuspec
-project.lock.json
-project.fragment.lock.json
 artifacts/
-
-## Rider-specific
-.idea/
-*.sln.iml
-
-## Visual Studio
-.vs/
-*.csproj.user
-
-## Temporary files
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
 *.tmp
 *.bak
-*.old
-*.orig
 
-## Resharper
+## === NuGet ===
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+project.lock.json
+project.fragment.lock.json
+
+## === IDE settings ===
+.vs/
+.idea/
+*.suo
+*.user
+*.csproj.user
+*.sln.docstates
+*.sln.iml
+
+## === Resharper ===
 _ReSharper*/
 *.DotSettings.user
 
-## Windows thumbnail cache
+## === OS generated ===
+.DS_Store
 Thumbs.db
 ehthumbs.db
 
-## Mac system files
-.DS_Store
+## === Rider launch ===
+*.pidb
+*.opendb
+*.VC.db
 
-## ----- EXCEÇÕES: Sempre manter a pasta Libs -----
+## === FFmpeg: garantir que os arquivos sejam mantidos ===
 !Libs/
-!Libs/**
+!Libs/ffmpeg/
+!Libs/ffmpeg/**
