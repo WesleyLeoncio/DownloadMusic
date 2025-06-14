@@ -208,7 +208,7 @@ public partial class MainWindow
             VideoList.Add(new VideoItem
             {
                 Video = v,
-                Status = "⏳ Pendente"
+                Status = "⏳"
             });
         }
     }
