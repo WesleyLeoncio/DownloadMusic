@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DownloadMusic"
         mc:Ignorable="d"
-        Title="YouTube Music Download" Height="450" Width="650">
+        Title="YouTube Music Download" Height="850" Width="650">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>   <!-- Pasta destino -->
@@ -28,6 +28,26 @@
             <Button Content="🔍 Buscar" Width="80" Click="BtnBuscarVideos_Click"/>
         </StackPanel>
         
+        <!-- Progresso -->
+        <StackPanel Grid.Row="2" Margin="0,0,0,10">
+            <Grid>
+                <ProgressBar x:Name="DownloadProgressBar"
+                             Height="25"
+                             Minimum="0"
+                             Maximum="100"
+                             Value="0"
+                             Foreground="Green"
+                             Background="#FFE0E0E0"/>
+        
+                <TextBlock x:Name="ProgressText"
+                           Text="0%"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Foreground="Black"/>
+            </Grid>
+        </StackPanel>
+        
         <!-- Tabela de músicas -->
         <DataGrid x:Name="DgvMusicas"
                   Grid.Row="3"
@@ -42,6 +62,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="80"/>
                 <DataGridTextColumn Header="Titulo" Binding="{Binding Titulo}" Width="*"/>
+                <DataGridTextColumn Header="Duração" Binding="{Binding Duracao}" Width="80"/>
                 <DataGridTemplateColumn Header="Ações" Width="80">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Media;
 using DownloadMusic.models;
 using DownloadMusic.Others;
 using Ookii.Dialogs.Wpf;
@@ -74,6 +75,7 @@ public partial class MainWindow : Window
 
     private async void BtnDownload_Click(object sender, RoutedEventArgs e)
     {
+        int concluidos = 0;
         SemaphoreSlim semaphore = new SemaphoreSlim(SemaphoreSlimCont());
         IEnumerable<Task> tasks = VideoList.Select(async item =>
         {
@@ -85,6 +87,8 @@ public partial class MainWindow : Window
                 {
                     item.Status = Emoji.Baixando;
                     await ProcessVideoAsync(new YoutubeClient(), item.Video);
+                    int valorAtual = Interlocked.Increment(ref concluidos);
+                    await AtualizarProgressoDownloadAsync(valorAtual);
                     item.Status = Emoji.Concluido;
                 }
                 catch (Exception ex)
@@ -94,7 +98,6 @@ public partial class MainWindow : Window
                 }
                 finally
                 {
-                    //AtualizarContDownload();
                     semaphore.Release();
                 }
             }
@@ -104,6 +107,21 @@ public partial class MainWindow : Window
         //DownloadFinalizado();
     }
 
+    
+    private async Task AtualizarProgressoDownloadAsync(int valorAtual)
+    {
+        int total = VideoList.Count;
+        double porcentagem = (double)valorAtual / total * 100;
+        await Dispatcher.InvokeAsync(() => AtualizarProgresso(porcentagem));
+    }
+
+    private void AtualizarProgresso(double valor)
+    {
+        DownloadProgressBar.Value = valor;
+        ProgressText.Text = $"{valor:0}%";
+
+        ProgressText.Foreground = valor >= 50 ? Brushes.White : Brushes.Black;
+    }
     // private void DownloadFinalizado()
     // {
     //     dgvMusicas.Refresh();
@@ -251,8 +269,6 @@ public partial class MainWindow : Window
 
     private int SemaphoreSlimCont()
     {
-        // progressBar.Maximum = _videoBindingList.Count;
-        // progressBar.Value = 0;
         return Math.Min(5, VideoList.Count);
     }
 
