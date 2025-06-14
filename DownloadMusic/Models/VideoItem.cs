@@ -5,7 +5,7 @@ namespace DownloadMusic.models;
 
 public class VideoItem : INotifyPropertyChanged
 {
-    private string _status;
+    private string _status = string.Empty;
     public string Titulo => Video?.Title ?? "";
     public TimeSpan Duracao => Video?.Duration ?? TimeSpan.Zero;
     public Video? Video { get; set; }
