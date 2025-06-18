@@ -1,4 +1,4 @@
-﻿<Window x:Class="DownloadMusic.Windows.CustomMessageBox"
+﻿<Window x:Class="DownloadMusic.Windows.Message.CustomMessageBox"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         WindowStyle="None"
@@ -13,7 +13,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/DownloadMusic;component/Styles/CustomMessageStyle.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/DownloadMusic;component/Windows/Message/Styles/CustomMessageStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>

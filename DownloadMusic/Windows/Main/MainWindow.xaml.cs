@@ -5,11 +5,11 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using DownloadMusic.models;
 using DownloadMusic.Others;
 using DownloadMusic.Others.Enums;
+using DownloadMusic.Windows.Message;
 using Ookii.Dialogs.Wpf;
 using WpfAnimatedGif;
 using YoutubeExplode;
@@ -18,7 +18,7 @@ using YoutubeExplode.Playlists;
 using YoutubeExplode.Videos;
 using YoutubeExplode.Videos.Streams;
 
-namespace DownloadMusic.Windows;
+namespace DownloadMusic.Windows.Main;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
@@ -73,7 +73,8 @@ public partial class MainWindow
                 }
                 catch (Exception ex)
                 {
-                    MessageCustom.Erro($"Erro ao baixar '{item.Video.Title}': {ex.Message}");
+                    CustomMessageBox.Show($"Erro ao baixar '{item.Video.Title}': {ex.Message}",
+                        "Erro", DialogType.Error);
                     item.Status = Emoji.Erro;
                 }
                 finally
@@ -102,12 +103,13 @@ public partial class MainWindow
             }
             else
             {
-                MessageCustom.Erro("URL inválida do YouTube.");
+                CustomMessageBox.Show("URL inválida do YouTube.","Erro",DialogType.Error);
             }
         }
         catch (Exception ex)
         {
-            MessageCustom.Erro($"Erro ao baixar: {ex.Message}");
+            CustomMessageBox.Show($"Erro ao baixar: {ex.Message}",
+                "Erro",DialogType.Error);
         }
     }
 
@@ -127,8 +129,10 @@ public partial class MainWindow
 
     private void DownloadFinalizado()
     {
-        MessageCustom.Sucesso("Downloads finalizados!");
+        CustomMessageBox.Show("Downloads finalizados!", "Finalizados", DialogType.Success);
         DesabilitarBotaoDownload();
+        AtualizarProgresso(0);
+        VideoList.Clear();
     }
 
     private async Task CarregarVideoAsync(string url)
@@ -193,7 +197,7 @@ public partial class MainWindow
 
     private void BtnRemover_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is System.Windows.Controls.Button button &&
+        if (sender is Button button &&
             button.Tag is VideoItem item &&
             VideoList.Contains(item))
         {
@@ -310,7 +314,7 @@ public partial class MainWindow
             {
                 try
                 {
-                    System.Diagnostics.Process.Start(new ProcessStartInfo
+                    Process.Start(new ProcessStartInfo
                     {
                         FileName = video.Url,
                         UseShellExecute = true

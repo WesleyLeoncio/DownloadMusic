@@ -1,11 +1,11 @@
 ﻿using System.Windows;
 using DownloadMusic.Others.Enums;
 
-namespace DownloadMusic.Windows;
+namespace DownloadMusic.Windows.Message;
 
-public partial class CustomMessageBox : Window
+public partial class CustomMessageBox
 {
-    private bool? _result = null;
+    private bool? _result;
   
     private CustomMessageBox(string title, string message, DialogType type)
     {
