@@ -3,10 +3,15 @@ using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using DownloadMusic.models;
 using DownloadMusic.Others;
+using DownloadMusic.Others.Enums;
 using Ookii.Dialogs.Wpf;
+using WpfAnimatedGif;
 using YoutubeExplode;
 using YoutubeExplode.Common;
 using YoutubeExplode.Playlists;
@@ -60,11 +65,11 @@ public partial class MainWindow
 
                 try
                 {
-                    item.Status = Emoji.Baixando;
+                    item.Status = "👇";
                     await ProcessVideoAsync(new YoutubeClient(), item.Video);
                     int valorAtual = Interlocked.Increment(ref concluidos);
                     await AtualizarProgressoDownloadAsync(valorAtual);
-                    item.Status = Emoji.Concluido;
+                    item.Status = "👌";
                 }
                 catch (Exception ex)
                 {
@@ -118,8 +123,6 @@ public partial class MainWindow
     {
         DownloadProgressBar.Value = valor;
         ProgressText.Text = $"{valor:0}%";
-
-        ProgressText.Foreground = valor >= 50 ? Brushes.White : Brushes.Black;
     }
 
     private void DownloadFinalizado()
@@ -130,13 +133,17 @@ public partial class MainWindow
 
     private async Task CarregarVideoAsync(string url)
     {
+        ShowLoading();
         await LoadMusica(url);
+        HideLoading();
         HabilitarBotaoDownload();
     }
 
     private async Task CarregarPlaylistAsync(string url)
     {
+        ShowLoading();
         await LoadPlaylistAsync(url);
+        HideLoading();
         HabilitarBotaoDownload();
     }
 
@@ -194,7 +201,6 @@ public partial class MainWindow
         }
     }
 
-
     private async Task LoadPlaylistAsync(string playlistUrl)
     {
         YoutubeClient youtube = new YoutubeClient();
@@ -208,7 +214,7 @@ public partial class MainWindow
             VideoList.Add(new VideoItem
             {
                 Video = v,
-                Status = "⏳"
+                Status = "✋"
             });
         }
     }
@@ -223,7 +229,7 @@ public partial class MainWindow
         VideoList.Add(new VideoItem
         {
             Video = video,
-            Status = "⏳ Pendente"
+            Status = "✋"
         });
     }
 
@@ -233,13 +239,13 @@ public partial class MainWindow
 
         if (string.IsNullOrWhiteSpace(inputSavePath))
         {
-            MessageCustom.Aviso("Informe o caminho que deseja salvar.");
+            CustomMessageBox.Show("Informe o caminho que deseja salvar.","Erro", DialogType.Error);
             return true;
         }
 
         if (string.IsNullOrWhiteSpace(inputUrl))
         {
-            MessageCustom.Aviso("Informe a URL da música ou playlist.");
+            CustomMessageBox.Show("Informe a URL da música ou playlist.","Erro", DialogType.Error);
             return true;
         }
 
@@ -270,4 +276,54 @@ public partial class MainWindow
     {
         return Regex.IsMatch(url, @"(youtu\.be/|watch\?v=)[a-zA-Z0-9_-]{11}", RegexOptions.IgnoreCase);
     }
+    
+    private void ShowLoading()
+    {
+        OverlayLoading.Visibility = Visibility.Visible;
+
+        string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "IMG", "load.gif");
+
+        var imageUri = new Uri(imagePath, UriKind.Absolute);
+        var bitmap = new BitmapImage();
+        bitmap.BeginInit();
+        bitmap.UriSource = imageUri;
+        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+        bitmap.EndInit();
+
+        ImageBehavior.SetAnimatedSource(ImgLoading, bitmap);
+    }
+
+
+    private void HideLoading()
+    {
+        OverlayLoading.Visibility = Visibility.Collapsed;
+        ImageBehavior.SetAnimatedSource(ImgLoading, null);
+    }
+
+
+    private void AbrirLinkMusica_Click(object sender, MouseButtonEventArgs e)
+    {
+        if (sender is TextBlock tb && tb.DataContext is VideoItem video && !string.IsNullOrWhiteSpace(video.Url))
+        {
+            bool? resposta = CustomMessageBox.Show("Deseja abrir a musica no navegador?", "Escutar Música", DialogType.Question);
+            if (resposta == true)
+            {
+                try
+                {
+                    System.Diagnostics.Process.Start(new ProcessStartInfo
+                    {
+                        FileName = video.Url,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao abrir o link: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+    }
+
+
+    
 }

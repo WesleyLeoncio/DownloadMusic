@@ -8,6 +8,8 @@ public class VideoItem : INotifyPropertyChanged
     private string _status = string.Empty;
     public string Titulo => Video?.Title ?? "";
     public TimeSpan Duracao => Video?.Duration ?? TimeSpan.Zero;
+    
+    public string Url => Video?.Url ?? "";
     public Video? Video { get; set; }
     
     public string Status

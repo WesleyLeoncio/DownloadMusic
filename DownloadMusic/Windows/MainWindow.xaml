@@ -1,12 +1,20 @@
 ﻿<Window x:Class="DownloadMusic.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
         Title="YouTube Music Download" Height="850"
-        Width="950" 
+        Width="950"
         ResizeMode="CanResize"
         MinWidth="650"
-        MinHeight="600"
-        >
+        MinHeight="600">
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Color="#EB3349" Offset="0" />
+            <GradientStop Color="#F45C43" Offset="1" />
+        </LinearGradientBrush>
+    </Window.Background>
+
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />  <!-- Pasta destino -->
@@ -19,31 +27,32 @@
         <!-- Pasta destino -->
         <Grid Grid.Row="0" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="170" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
 
-            <Label Content="Pasta de destino:"
+            <Label Content="Pasta De Destino"
                    VerticalAlignment="Center"
                    Grid.Column="0"
-                   FontSize="14"
+                   FontSize="18"
                    FontWeight="SemiBold"
                    FontFamily="Segoe UI Variable Text"
-                   Foreground="#333" />
+                   Foreground="White" />
 
             <TextBox x:Name="TxtSavePath"
                      Height="32"
-                     Margin="5,0"
+                     Margin="10,0"
+                     IsEnabled="False"
                      Grid.Column="1"
                      VerticalAlignment="Center"
                      Padding="8,4"
-                     FontSize="14"
+                     FontSize="18"
                      FontFamily="Segoe UI Variable Text"
-                     Background="White"
-                     BorderBrush="#DDD"
+                     Background="#EA384D    "
+                     BorderBrush="White  "
                      BorderThickness="1"
-                     Foreground="#333">
+                     Foreground="#FAFAFA">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -85,62 +94,88 @@
                     VerticalAlignment="Center">
                 <Button.Style>
                     <Style TargetType="Button">
+                        <Setter Property="SnapsToDevicePixels" Value="True" />
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}"
-                                            CornerRadius="6"
+                                    <Border x:Name="border"
+                                            Background="{TemplateBinding Background}"
                                             BorderBrush="{TemplateBinding BorderBrush}"
-                                            BorderThickness="{TemplateBinding BorderThickness}">
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            CornerRadius="6">
+                                        <Border.Effect>
+                                            <DropShadowEffect Color="Black"
+                                                              BlurRadius="4"
+                                                              ShadowDepth="1"
+                                                              Opacity="0.25" />
+                                        </Border.Effect>
                                         <ContentPresenter HorizontalAlignment="Center"
                                                           VerticalAlignment="Center" />
                                     </Border>
+
+                                    <ControlTemplate.Triggers>
+
+                                        <!-- Hover -->
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="#C62828" />
+                                            <Setter TargetName="border" Property="RenderTransform">
+                                                <Setter.Value>
+                                                    <ScaleTransform ScaleX="1.05" ScaleY="1.05" />
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter TargetName="border" Property="RenderTransformOrigin"
+                                                    Value="0.5,0.5" />
+                                        </Trigger>
+
+                                        <!-- Pressionado -->
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="#D32F2F" />
+                                            <Setter TargetName="border" Property="RenderTransform">
+                                                <Setter.Value>
+                                                    <ScaleTransform ScaleX="0.97" ScaleY="0.97" />
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter TargetName="border" Property="RenderTransformOrigin"
+                                                    Value="0.5,0.5" />
+                                        </Trigger>
+
+                                    </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#C62828" />
-                                <Setter Property="Foreground" Value="White" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#D32F2F" />
-                                <Setter Property="Foreground" Value="White" />
-                            </Trigger>
-                        </Style.Triggers>
                     </Style>
                 </Button.Style>
             </Button>
-        </Grid>
 
+        </Grid>
         <!-- URL -->
         <Grid Grid.Row="1" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="170" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
 
-            <Label Content="URL Música/Playlist:"
+            <Label Content="Url Música/Playlist"
                    VerticalAlignment="Center"
                    Grid.Column="0"
-                   FontSize="14"
+                   FontSize="18"
                    FontWeight="SemiBold"
                    FontFamily="Segoe UI Variable Text"
-                   Foreground="#333" />
+                   Foreground="White" />
 
             <TextBox x:Name="TxtUrl"
                      Height="32"
-                     Margin="5,0"
+                     Margin="10,0"
                      Grid.Column="1"
                      VerticalAlignment="Center"
                      Padding="8,4"
-                     FontSize="14"
+                     FontSize="18"
                      FontFamily="Segoe UI Variable Text"
-                     Background="White"
-                     BorderBrush="#DDD"
+                     Background="#EA384D"
+                     BorderBrush="White"
                      BorderThickness="1"
-                     Foreground="#333">
+                     Foreground="#FAFAFA">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -182,35 +217,60 @@
                     VerticalAlignment="Center">
                 <Button.Style>
                     <Style TargetType="Button">
+                        <Setter Property="SnapsToDevicePixels" Value="True" />
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}"
-                                            CornerRadius="6"
+                                    <Border x:Name="border"
+                                            Background="{TemplateBinding Background}"
                                             BorderBrush="{TemplateBinding BorderBrush}"
-                                            BorderThickness="{TemplateBinding BorderThickness}">
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            CornerRadius="6">
+                                        <Border.Effect>
+                                            <DropShadowEffect Color="Black"
+                                                              BlurRadius="4"
+                                                              ShadowDepth="1"
+                                                              Opacity="0.25" />
+                                        </Border.Effect>
                                         <ContentPresenter HorizontalAlignment="Center"
                                                           VerticalAlignment="Center" />
                                     </Border>
+
+                                    <ControlTemplate.Triggers>
+
+                                        <!-- Hover -->
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="#C62828" />
+                                            <Setter TargetName="border" Property="RenderTransform">
+                                                <Setter.Value>
+                                                    <ScaleTransform ScaleX="1.05" ScaleY="1.05" />
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter TargetName="border" Property="RenderTransformOrigin"
+                                                    Value="0.5,0.5" />
+                                        </Trigger>
+
+                                        <!-- Pressionado -->
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="#D32F2F" />
+                                            <Setter TargetName="border" Property="RenderTransform">
+                                                <Setter.Value>
+                                                    <ScaleTransform ScaleX="0.97" ScaleY="0.97" />
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter TargetName="border" Property="RenderTransformOrigin"
+                                                    Value="0.5,0.5" />
+                                        </Trigger>
+
+                                    </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#C62828" />
-                                <Setter Property="Foreground" Value="White" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#D32F2F" />
-                                <Setter Property="Foreground" Value="White" />
-                            </Trigger>
-                        </Style.Triggers>
                     </Style>
                 </Button.Style>
             </Button>
+
         </Grid>
-
-
         <!-- Progresso -->
         <Grid Grid.Row="2" Height="30" Margin="0,0,0,10">
             <ProgressBar x:Name="DownloadProgressBar"
@@ -218,7 +278,8 @@
                          Maximum="100"
                          Value="0"
                          Foreground="#B71C1C"
-                         Background="#FFE0E0E0"
+                         Background="Transparent"
+                         BorderBrush="White"
                          Height="30"
                          HorizontalAlignment="Stretch" />
             <TextBlock x:Name="ProgressText"
@@ -226,9 +287,8 @@
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontWeight="Bold"
-                       Foreground="Black" />
+                       Foreground="White" />
         </Grid>
-
         <!-- Lista -->
         <DataGrid x:Name="DgvMusicas"
                   Grid.Row="3"
@@ -239,8 +299,8 @@
                   SelectionMode="Single"
                   Margin="0,0,0,20"
                   HeadersVisibility="Column"
-                  AlternatingRowBackground="#FAFAFA"
-                  RowBackground="#FFFFFF"
+                  AlternatingRowBackground="Transparent"
+                  RowBackground="Transparent"
                   GridLinesVisibility="None"
                   ColumnHeaderHeight="42"
                   RowHeight="42"
@@ -249,14 +309,21 @@
                   FontFamily="Segoe UI Variable Text"
                   HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch"
-                  Background="Transparent"
                   VerticalScrollBarVisibility="Auto"
                   HorizontalScrollBarVisibility="Auto">
+
+            <!-- Fundo com gradiente roxo -->
+            <DataGrid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#EB3349" Offset="0.1" />
+                    <GradientStop Color="#F45C43" Offset="1" />
+                </LinearGradientBrush>
+            </DataGrid.Background>
 
             <DataGrid.Resources>
                 <!-- Cabeçalhos -->
                 <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="Background" Value="#B71C1C" />
+                    <Setter Property="Background" Value="#C62828" />
                     <Setter Property="Foreground" Value="White" />
                     <Setter Property="FontWeight" Value="SemiBold" />
                     <Setter Property="FontSize" Value="15" />
@@ -274,19 +341,20 @@
                     <Setter Property="FontSize" Value="14" />
                     <Setter Property="FontFamily" Value="Segoe UI Variable Display" />
                     <Setter Property="FontWeight" Value="Normal" />
-                    <Setter Property="Foreground" Value="#333333" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="Background" Value="Transparent" />
                     <Setter Property="BorderThickness" Value="0" />
                     <Setter Property="HorizontalContentAlignment" Value="Center" />
                     <Setter Property="VerticalContentAlignment" Value="Center" />
                     <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                     <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="#FFE0E0" />
-                            <Setter Property="Foreground" Value="#C62828" />
-                            <Setter Property="FontWeight" Value="SemiBold" />
-                        </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#FFF5F5F5" />
+                            <Setter Property="Background" Value="#33FFFFFF" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Red" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="FontWeight" Value="SemiBold" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -294,57 +362,80 @@
                 <!-- Linhas -->
                 <Style TargetType="DataGridRow">
                     <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="BorderBrush" Value="#EEEEEE" />
+                    <Setter Property="BorderBrush" Value="White" />
                     <Setter Property="BorderThickness" Value="0,0,0,1" />
                 </Style>
             </DataGrid.Resources>
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="90">
+                <DataGridTextColumn Header="👌 Status" Binding="{Binding Status}" Width="90">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="VerticalAlignment" Value="Center" />
                             <Setter Property="TextAlignment" Value="Center" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="FontSize" Value="27" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Header="Título" Binding="{Binding Titulo}" Width="*">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Left" />
-                            <Setter Property="VerticalAlignment" Value="Center" />
-                            <Setter Property="TextAlignment" Value="Left" />
-                            <Setter Property="FontWeight" Value="SemiBold" />
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="🎵 Música" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Titulo}"
+                                       MouseLeftButtonUp="AbrirLinkMusica_Click"
+                                       Cursor="Hand"
+                                       Foreground="White"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       TextAlignment="Left"
+                                       FontSize="14"
+                                       FontFamily="Segoe UI Variable Display" d:DataContext="{d:DesignInstance }">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextDecorations" Value="{x:Null}" />
+                                        <Setter Property="Foreground" Value="White" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="TextDecorations" Value="Underline" />
+                                                <Setter Property="Foreground" Value="#D1B3FF" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
-                <DataGridTextColumn Header="Duração" Binding="{Binding Duracao}" Width="110">
+
+                <DataGridTextColumn Header="⏰ Duração" Binding="{Binding Duracao}" Width="110">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="VerticalAlignment" Value="Center" />
                             <Setter Property="TextAlignment" Value="Center" />
+                            <Setter Property="Foreground" Value="White" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
 
-                <DataGridTemplateColumn Header="Ações" Width="90">
+                <DataGridTemplateColumn Header="🗑️ Ação" Width="90">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Button ToolTip="Remover música"
                                         Click="BtnRemover_Click"
                                         Tag="{Binding}"
-                                        FontSize="16"
+                                        FontSize="22"
                                         Cursor="Hand"
                                         FontWeight="Bold"
                                         Padding="4"
                                         BorderThickness="0"
                                         Background="Transparent"
-                                        Foreground="#D32F2F"
+                                        Foreground="White"
                                         Width="30"
                                         Height="30"
                                         HorizontalContentAlignment="Center"
@@ -365,12 +456,12 @@
                                             </Setter>
                                             <Style.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Foreground" Value="#FF5252" />
-                                                    <Setter Property="Background" Value="#FFF0F0" />
+                                                    <Setter Property="Foreground" Value="#D1B3FF" />
+                                                    <Setter Property="Background" Value="#33FFFFFF" />
                                                 </Trigger>
                                                 <Trigger Property="IsPressed" Value="True">
-                                                    <Setter Property="Foreground" Value="#C62828" />
-                                                    <Setter Property="Background" Value="#FFCDD2" />
+                                                    <Setter Property="Foreground" Value="#B38EFF" />
+                                                    <Setter Property="Background" Value="#44FFFFFF" />
                                                 </Trigger>
                                             </Style.Triggers>
                                         </Style>
@@ -383,46 +474,90 @@
             </DataGrid.Columns>
         </DataGrid>
 
+        <!-- Overlay de Carregamento -->
+        <Grid x:Name="OverlayLoading"
+              Background="Transparent"
+              Visibility="Collapsed"
+              Panel.ZIndex="999"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
+              Grid.Row="0" Grid.RowSpan="5">
+
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Vertical">
+                <Image x:Name="ImgLoading"
+                       Width="512"
+                       Height="512"
+                       HorizontalAlignment="Center"
+                       Stretch="None" />
+            </StackPanel>
+        </Grid>
         <!-- Botão baixar -->
         <Button x:Name="BtnDownload"
                 Grid.Row="4"
-                Content="⬇ Baixar músicas"
+                Content="🎵 Baixar Músicas"
                 Height="45"
                 FontWeight="Bold"
-                FontSize="16"
+                FontSize="26"
                 Foreground="White"
                 Click="BtnDownload_Click"
                 IsEnabled="False"
-                HorizontalAlignment="Stretch">
+                HorizontalAlignment="Stretch"
+                Cursor="Hand">
             <Button.Style>
                 <Style TargetType="Button">
+                    <Setter Property="FontFamily" Value="Segoe UI" />
                     <Setter Property="Background" Value="#D32F2F" />
                     <Setter Property="BorderBrush" Value="#B71C1C" />
                     <Setter Property="BorderThickness" Value="1" />
-                    <Setter Property="FontFamily" Value="Segoe UI" />
+                    <Setter Property="SnapsToDevicePixels" Value="True" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Button">
-                                <Border Background="{TemplateBinding Background}"
+                                <Border x:Name="border"
+                                        Background="{TemplateBinding Background}"
                                         BorderBrush="{TemplateBinding BorderBrush}"
                                         BorderThickness="{TemplateBinding BorderThickness}"
-                                        CornerRadius="10"
-                                        SnapsToDevicePixels="True">
+                                        CornerRadius="10">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="Black" BlurRadius="5" Opacity="0.3" ShadowDepth="2" />
+                                    </Border.Effect>
                                     <ContentPresenter HorizontalAlignment="Center"
                                                       VerticalAlignment="Center" />
                                 </Border>
+
                                 <ControlTemplate.Triggers>
+
+                                    <!-- Hover -->
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#B71C1C" />
-                                        <Setter Property="BorderBrush" Value="#7F0000" />
+                                        <Setter TargetName="border" Property="Background" Value="#B71C1C" />
+                                        <Setter TargetName="border" Property="BorderBrush" Value="#7F0000" />
+                                        <Setter TargetName="border" Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="1.03" ScaleY="1.03" />
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter TargetName="border" Property="RenderTransformOrigin" Value="0.5,0.5" />
                                     </Trigger>
+
+                                    <!-- Pressionado -->
                                     <Trigger Property="IsPressed" Value="True">
-                                        <Setter Property="Background" Value="#9A0007" />
-                                        <Setter Property="BorderBrush" Value="#6A0000" />
+                                        <Setter TargetName="border" Property="Background" Value="#9A0007" />
+                                        <Setter TargetName="border" Property="BorderBrush" Value="#6A0000" />
+                                        <Setter TargetName="border" Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="0.98" ScaleY="0.98" />
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter TargetName="border" Property="RenderTransformOrigin" Value="0.5,0.5" />
                                     </Trigger>
+
+                                    <!-- Desabilitado -->
                                     <Trigger Property="IsEnabled" Value="False">
-                                        <Setter Property="Opacity" Value="0.5" />
+                                        <Setter TargetName="border" Property="Opacity" Value="0.4" />
                                     </Trigger>
+
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
@@ -430,7 +565,6 @@
                 </Style>
             </Button.Style>
         </Button>
-
     </Grid>
 
 </Window>
