@@ -67,24 +67,17 @@
                     VerticalAlignment="Center"
                     Style="{StaticResource CustomButtonStyle}" />
         </Grid>
+
         <!-- Progresso -->
         <Grid Grid.Row="2" Height="30" Margin="0,0,0,10">
             <ProgressBar x:Name="DownloadProgressBar"
-                         Minimum="0"
-                         Maximum="100"
-                         Value="0"
-                         Foreground="#B71C1C"
-                         Background="Transparent"
-                         BorderBrush="White"
-                         Height="30"
-                         HorizontalAlignment="Stretch" />
+                         Style="{StaticResource CustomProgressBarStyle}" />
+
             <TextBlock x:Name="ProgressText"
-                       Text="0%"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontWeight="Bold"
-                       Foreground="White" />
+                       Style="{StaticResource ProgressTextStyle}"
+                       Text="0%" />
         </Grid>
+
         <!-- Lista -->
         <DataGrid x:Name="DgvMusicas"
                   Grid.Row="3"
@@ -214,7 +207,7 @@
                                                     </ToolTip.Template>
                                                     <TextBlock TextWrapping="Wrap" FontWeight="SemiBold" MaxWidth="620">
                                                         <TextBlock.Text>
-                                                            <MultiBinding StringFormat="Abrir música no youtube: {0}">
+                                                            <MultiBinding StringFormat="Abrir Música No Youtube: {0}">
                                                                 <Binding Path="Titulo" />
                                                             </MultiBinding>
                                                         </TextBlock.Text>
@@ -228,7 +221,6 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-
 
                 <DataGridTextColumn Header="⏰ Duração" Binding="{Binding Duracao}" Width="110">
                     <DataGridTextColumn.ElementStyle>
@@ -245,11 +237,10 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Button ToolTip="Remover música"
-                                        Click="BtnRemover_Click"
+                                <Button Click="BtnRemover_Click"
                                         Tag="{Binding}"
-                                        FontSize="22"
                                         Cursor="Hand"
+                                        FontSize="22"
                                         FontWeight="Bold"
                                         Padding="4"
                                         BorderThickness="0"
@@ -259,7 +250,27 @@
                                         Height="30"
                                         HorizontalContentAlignment="Center"
                                         VerticalContentAlignment="Center">
-                                    <TextBlock Text="🗑" />
+
+                                    <Button.ToolTip>
+                                        <ToolTip FontSize="14" Placement="Left" Foreground="White">
+                                            <ToolTip.Template>
+                                                <ControlTemplate TargetType="ToolTip">
+                                                    <Border Background="#EB3349"
+                                                            BorderBrush="White"
+                                                            BorderThickness="1"
+                                                            CornerRadius="8"
+                                                            Padding="8">
+                                                        <ContentPresenter />
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </ToolTip.Template>
+                                            <TextBlock Text="Remover Música"
+                                                       TextWrapping="Wrap"
+                                                       FontWeight="SemiBold"
+                                                       MaxWidth="300" />
+                                        </ToolTip>
+                                    </Button.ToolTip>
+
                                     <Button.Style>
                                         <Style TargetType="Button">
                                             <Setter Property="Template">
@@ -285,11 +296,14 @@
                                             </Style.Triggers>
                                         </Style>
                                     </Button.Style>
+
+                                    <TextBlock Text="🗑" />
                                 </Button>
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+
             </DataGrid.Columns>
         </DataGrid>
 

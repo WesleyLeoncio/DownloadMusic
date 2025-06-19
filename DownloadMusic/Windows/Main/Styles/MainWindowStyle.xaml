@@ -42,7 +42,6 @@
     </Style>
 
 
-
     <!-- Estilo para botão personalizado -->
     <Style x:Key="CustomRedButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="#B71C1C" />
@@ -102,11 +101,11 @@
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="White" />
     </Style>
-    
+
     <Style x:Key="CustomButtonDownloadStyle"
            TargetType="Button"
            BasedOn="{StaticResource CustomRedButtonStyle}">
-       
+
         <!-- Estilo base -->
         <Setter Property="Height" Value="45" />
         <Setter Property="FontSize" Value="26" />
@@ -123,7 +122,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+
 
     <Style x:Key="LabelCustomStyle" TargetType="Label">
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -133,5 +132,24 @@
         <Setter Property="Foreground" Value="White" />
     </Style>
 
+    <!-- ProgressBar -->
+    <Style x:Key="CustomProgressBarStyle" TargetType="ProgressBar">
+        <Setter Property="Minimum" Value="0" />
+        <Setter Property="Maximum" Value="100" />
+        <Setter Property="Value" Value="0" />
+        <Setter Property="Foreground" Value="#B71C1C" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="White" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
 
+    <Style x:Key="ProgressTextStyle" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+    
+    
 </ResourceDictionary>
