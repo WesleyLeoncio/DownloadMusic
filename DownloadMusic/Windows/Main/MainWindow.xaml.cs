@@ -46,6 +46,7 @@ public partial class MainWindow
     private async void BtnBuscarVideos_Click(object sender, RoutedEventArgs e)
     {
         string inputUrl = TxtUrl.Text.Trim();
+        DesabilitarBotaoDownload();
 
         if (ChecarCampos(inputUrl))
             return;
@@ -137,17 +138,13 @@ public partial class MainWindow
 
     private async Task CarregarVideoAsync(string url)
     {
-        ShowLoading();
         await LoadMusica(url);
-        HideLoading();
         HabilitarBotaoDownload();
     }
 
     private async Task CarregarPlaylistAsync(string url)
     {
-        ShowLoading();
         await LoadPlaylistAsync(url);
-        HideLoading();
         HabilitarBotaoDownload();
     }
 
@@ -211,7 +208,7 @@ public partial class MainWindow
         IReadOnlyList<PlaylistVideo> videos = await youtube.Playlists.GetVideosAsync(playlistUrl);
 
         VideoList.Clear();
-
+        ShowLoading();
         foreach (var video in videos)
         {
             Video v = await youtube.Videos.GetAsync(video.Url);
@@ -221,12 +218,14 @@ public partial class MainWindow
                 Status = "✋"
             });
         }
+        HideLoading();
     }
 
     private async Task LoadMusica(string inputUrl)
     {
         VideoList.Clear();
-
+        ShowLoading();
+        
         var youtube = new YoutubeClient();
         var video = await youtube.Videos.GetAsync(inputUrl);
 
@@ -235,6 +234,7 @@ public partial class MainWindow
             Video = video,
             Status = "✋"
         });
+        HideLoading();
     }
 
     private bool ChecarCampos(string inputUrl)
