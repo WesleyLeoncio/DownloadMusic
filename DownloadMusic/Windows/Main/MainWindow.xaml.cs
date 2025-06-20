@@ -66,11 +66,11 @@ public partial class MainWindow
 
                 try
                 {
-                    item.Status = "👇";
+                    item.Status = Emoji.Baixando;
                     await ProcessVideoAsync(new YoutubeClient(), item.Video);
                     int valorAtual = Interlocked.Increment(ref concluidos);
                     await AtualizarProgressoDownloadAsync(valorAtual);
-                    item.Status = "👌";
+                    item.Status = Emoji.Concluido;
                 }
                 catch (Exception ex)
                 {
@@ -215,7 +215,7 @@ public partial class MainWindow
             VideoList.Add(new VideoItem
             {
                 Video = v,
-                Status = "✋"
+                Status = Emoji.Pendente
             });
         }
         HideLoading();
@@ -232,7 +232,7 @@ public partial class MainWindow
         VideoList.Add(new VideoItem
         {
             Video = video,
-            Status = "✋"
+            Status = Emoji.Pendente
         });
         HideLoading();
     }
@@ -249,7 +249,7 @@ public partial class MainWindow
 
         if (string.IsNullOrWhiteSpace(inputUrl))
         {
-            CustomMessageBox.Show("Informe a URL da música ou playlist.","Erro", DialogType.Error);
+            CustomMessageBox.Show("Informe a url da música ou playlist.","Erro", DialogType.Error);
             return true;
         }
 
@@ -327,7 +327,5 @@ public partial class MainWindow
             }
         }
     }
-
-
     
 }

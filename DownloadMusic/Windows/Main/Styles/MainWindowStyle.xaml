@@ -38,10 +38,8 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <!-- Nenhum Style.Triggers necessário -->
     </Style>
-
-
+    
     <!-- Estilo para botão personalizado -->
     <Style x:Key="CustomRedButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="#B71C1C" />
@@ -122,8 +120,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
-
+    
     <Style x:Key="LabelCustomStyle" TargetType="Label">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="FontSize" Value="18" />
@@ -150,6 +147,132 @@
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Foreground" Value="White" />
     </Style>
-    
-    
+
+    <!-- Tabela -->
+    <!-- Fundo com gradiente do DataGrid -->
+    <LinearGradientBrush x:Key="DataGridBackgroundBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#EB3349" Offset="0.1" />
+        <GradientStop Color="#F45C43" Offset="1" />
+    </LinearGradientBrush>
+
+    <!-- Estilo do cabeçalho das colunas -->
+    <Style x:Key="ColumnHeaderStyle" TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="#C62828" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Padding" Value="8,6" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Height" Value="42" />
+    </Style>
+
+    <!-- Estilo das células -->
+    <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
+        <Setter Property="Padding" Value="8,4" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Segoe UI Variable Display" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#33FFFFFF" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="Red" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Estilo das linhas -->
+    <Style x:Key="DataGridRowStyle" TargetType="DataGridRow">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="White" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+    </Style>
+
+    <!-- Estilo dos TextBlocks com emoji e duração -->
+    <Style x:Key="CenteredTextStyle" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <!-- Estilo do título da música com tooltip -->
+    <Style x:Key="MusicTitleTextStyle" TargetType="TextBlock">
+        <Setter Property="TextDecorations" Value="{x:Null}" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="ToolTip">
+            <Setter.Value>
+                <ToolTip Background="Transparent" Foreground="White" FontSize="14" Placement="Top">
+                    <ToolTip.Template>
+                        <ControlTemplate TargetType="ToolTip">
+                            <Border Background="#EB3349" BorderBrush="White" BorderThickness="1" CornerRadius="8"
+                                    Padding="8">
+                                <ContentPresenter />
+                            </Border>
+                        </ControlTemplate>
+                    </ToolTip.Template>
+                    <TextBlock TextWrapping="Wrap" FontWeight="SemiBold" MaxWidth="620">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="Abrir Música No Youtube: {0}">
+                                <Binding Path="Titulo" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </ToolTip>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Estilo do botão de ação (Remover) -->
+    <Style x:Key="ActionButtonStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="#D1B3FF" />
+                <Setter Property="Background" Value="#33FFFFFF" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Foreground" Value="#B38EFF" />
+                <Setter Property="Background" Value="#44FFFFFF" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Estilo do tooltip do botão -->
+    <Style x:Key="ActionButtonTooltipStyle" TargetType="ToolTip">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Placement" Value="Left" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <Border Background="#EB3349" BorderBrush="White" BorderThickness="1" CornerRadius="8" Padding="8">
+                        <ContentPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
 </ResourceDictionary>

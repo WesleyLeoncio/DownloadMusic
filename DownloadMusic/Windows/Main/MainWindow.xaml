@@ -8,7 +8,8 @@
         Width="950"
         ResizeMode="CanResize"
         MinWidth="650"
-        MinHeight="600">
+        MinHeight="600"
+        WindowStartupLocation="CenterScreen">
 
 
     <Grid Margin="20">
@@ -99,140 +100,47 @@
                   HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch"
                   VerticalScrollBarVisibility="Auto"
-                  HorizontalScrollBarVisibility="Auto">
-
-            <!-- Fundo com gradiente roxo -->
-            <DataGrid.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#EB3349" Offset="0.1" />
-                    <GradientStop Color="#F45C43" Offset="1" />
-                </LinearGradientBrush>
-            </DataGrid.Background>
-
-            <DataGrid.Resources>
-                <!-- Cabeçalhos -->
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="Background" Value="#C62828" />
-                    <Setter Property="Foreground" Value="White" />
-                    <Setter Property="FontWeight" Value="SemiBold" />
-                    <Setter Property="FontSize" Value="15" />
-                    <Setter Property="Padding" Value="8,6" />
-                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                    <Setter Property="VerticalContentAlignment" Value="Center" />
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                    <Setter Property="BorderThickness" Value="0" />
-                    <Setter Property="Height" Value="42" />
-                </Style>
-
-                <!-- Células -->
-                <Style TargetType="DataGridCell">
-                    <Setter Property="Padding" Value="8,4" />
-                    <Setter Property="FontSize" Value="14" />
-                    <Setter Property="FontFamily" Value="Segoe UI Variable Display" />
-                    <Setter Property="FontWeight" Value="Normal" />
-                    <Setter Property="Foreground" Value="White" />
-                    <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="BorderThickness" Value="0" />
-                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                    <Setter Property="VerticalContentAlignment" Value="Center" />
-                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#33FFFFFF" />
-                        </Trigger>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="Red" />
-                            <Setter Property="Foreground" Value="White" />
-                            <Setter Property="FontWeight" Value="SemiBold" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-
-                <!-- Linhas -->
-                <Style TargetType="DataGridRow">
-                    <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="BorderBrush" Value="White" />
-                    <Setter Property="BorderThickness" Value="0,0,0,1" />
-                </Style>
-            </DataGrid.Resources>
+                  HorizontalScrollBarVisibility="Auto"
+                  Background="{StaticResource DataGridBackgroundBrush}"
+                  ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}"
+                  CellStyle="{StaticResource DataGridCellStyle}"
+                  RowStyle="{StaticResource DataGridRowStyle}">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="👌 Status" Binding="{Binding Status}" Width="90">
+
+                <!-- Status -->
+                <DataGridTextColumn Header="👌 Status" Binding="{Binding Status}" Width="90" FontSize="28">
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="VerticalAlignment" Value="Center" />
-                            <Setter Property="TextAlignment" Value="Center" />
-                            <Setter Property="Foreground" Value="White" />
-                            <Setter Property="FontSize" Value="27" />
-                        </Style>
+                        <StaticResource ResourceKey="CenteredTextStyle" />
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
 
+                <!-- Música -->
                 <DataGridTemplateColumn Header="🎵 Música" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Titulo}"
                                        MouseLeftButtonUp="AbrirLinkMusica_Click"
                                        Cursor="Hand"
-                                       Foreground="White"
                                        FontWeight="SemiBold"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Left"
                                        TextAlignment="Left"
                                        FontSize="14"
                                        FontFamily="Segoe UI Variable Display"
-                                       d:DataContext="{d:DesignInstance }">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="TextDecorations" Value="{x:Null}" />
-                                        <Setter Property="Foreground" Value="White" />
-                                        <Setter Property="ToolTip">
-                                            <Setter.Value>
-                                                <ToolTip Background="Transparent"
-                                                         Foreground="White"
-                                                         FontSize="14"
-                                                         Placement="Top"
-                                                         d:DataContext="{d:DesignInstance}">
-                                                    <ToolTip.Template>
-                                                        <ControlTemplate TargetType="ToolTip">
-                                                            <Border Background="#EB3349"
-                                                                    BorderBrush="White"
-                                                                    BorderThickness="1"
-                                                                    CornerRadius="8"
-                                                                    Padding="8">
-                                                                <ContentPresenter />
-                                                            </Border>
-                                                        </ControlTemplate>
-                                                    </ToolTip.Template>
-                                                    <TextBlock TextWrapping="Wrap" FontWeight="SemiBold" MaxWidth="620">
-                                                        <TextBlock.Text>
-                                                            <MultiBinding StringFormat="Abrir Música No Youtube: {0}">
-                                                                <Binding Path="Titulo" />
-                                                            </MultiBinding>
-                                                        </TextBlock.Text>
-                                                    </TextBlock>
-                                                </ToolTip>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
+                                       Style="{StaticResource MusicTitleTextStyle}" d:DataContext="{d:DesignInstance }" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
+                <!-- Duração -->
                 <DataGridTextColumn Header="⏰ Duração" Binding="{Binding Duracao}" Width="110">
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="VerticalAlignment" Value="Center" />
-                            <Setter Property="TextAlignment" Value="Center" />
-                            <Setter Property="Foreground" Value="White" />
-                        </Style>
+                        <StaticResource ResourceKey="CenteredTextStyle" />
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
 
+                <!-- Botão de ação -->
                 <DataGridTemplateColumn Header="🗑️ Ação" Width="90">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -249,21 +157,11 @@
                                         Width="30"
                                         Height="30"
                                         HorizontalContentAlignment="Center"
-                                        VerticalContentAlignment="Center">
+                                        VerticalContentAlignment="Center"
+                                        Style="{StaticResource ActionButtonStyle}">
 
                                     <Button.ToolTip>
-                                        <ToolTip FontSize="14" Placement="Left" Foreground="White">
-                                            <ToolTip.Template>
-                                                <ControlTemplate TargetType="ToolTip">
-                                                    <Border Background="#EB3349"
-                                                            BorderBrush="White"
-                                                            BorderThickness="1"
-                                                            CornerRadius="8"
-                                                            Padding="8">
-                                                        <ContentPresenter />
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </ToolTip.Template>
+                                        <ToolTip Style="{StaticResource ActionButtonTooltipStyle}">
                                             <TextBlock Text="Remover Música"
                                                        TextWrapping="Wrap"
                                                        FontWeight="SemiBold"
@@ -271,39 +169,12 @@
                                         </ToolTip>
                                     </Button.ToolTip>
 
-                                    <Button.Style>
-                                        <Style TargetType="Button">
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="Button">
-                                                        <Border Background="{TemplateBinding Background}"
-                                                                CornerRadius="4">
-                                                            <ContentPresenter HorizontalAlignment="Center"
-                                                                              VerticalAlignment="Center" />
-                                                        </Border>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Foreground" Value="#D1B3FF" />
-                                                    <Setter Property="Background" Value="#33FFFFFF" />
-                                                </Trigger>
-                                                <Trigger Property="IsPressed" Value="True">
-                                                    <Setter Property="Foreground" Value="#B38EFF" />
-                                                    <Setter Property="Background" Value="#44FFFFFF" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-
                                     <TextBlock Text="🗑" />
                                 </Button>
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-
             </DataGrid.Columns>
         </DataGrid>
 
@@ -326,6 +197,7 @@
                        Stretch="None" />
             </StackPanel>
         </Grid>
+
         <!-- Botão baixar -->
         <Button x:Name="BtnDownload"
                 Grid.Row="4"
