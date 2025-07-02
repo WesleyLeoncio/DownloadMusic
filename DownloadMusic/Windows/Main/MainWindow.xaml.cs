@@ -56,7 +56,7 @@ public partial class MainWindow
 
     private async void BtnDownload_Click(object sender, RoutedEventArgs e)
     {
-        int concluidos = 0;
+        int concluido = 0;
         SemaphoreSlim semaphore = new SemaphoreSlim(SemaphoreSlimCont());
         IEnumerable<Task> tasks = VideoList.Select(async item =>
         {
@@ -68,7 +68,7 @@ public partial class MainWindow
                 {
                     item.Status = Emoji.Baixando;
                     await ProcessVideoAsync(new YoutubeClient(), item.Video);
-                    int valorAtual = Interlocked.Increment(ref concluidos);
+                    int valorAtual = Interlocked.Increment(ref concluido);
                     await AtualizarProgressoDownloadAsync(valorAtual);
                     item.Status = Emoji.Concluido;
                 }
@@ -130,7 +130,7 @@ public partial class MainWindow
 
     private void DownloadFinalizado()
     {
-        CustomMessageBox.Show("Downloads finalizados!", "Finalizados", DialogType.Success);
+        CustomMessageBox.Show("Download Finalizado!", "Finalizado", DialogType.Success);
         DesabilitarBotaoDownload();
         AtualizarProgresso(0);
         VideoList.Clear();
