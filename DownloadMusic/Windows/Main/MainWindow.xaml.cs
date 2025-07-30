@@ -50,13 +50,13 @@ public partial class MainWindow
 
         if (ChecarCampos(inputUrl))
             return;
-
         await ProcessarUrlAsync(inputUrl);
     }
 
     private async void BtnDownload_Click(object sender, RoutedEventArgs e)
     {
         int concluido = 0;
+        DesabilitarBotaoDownload();
         SemaphoreSlim semaphore = new SemaphoreSlim(SemaphoreSlimCont());
         IEnumerable<Task> tasks = VideoList.Select(async item =>
         {
@@ -161,16 +161,19 @@ public partial class MainWindow
 
         string audioFilePath = Path.Combine(outputDirectory, $"{safeTitle}.webm");
         string mp3FilePath = Path.Combine(outputDirectory, $"{safeTitle}.mp3");
-
+        
+        //TODO TESTE
+        Console.WriteLine("Processando Musica ");
         await youtube.Videos.Streams.DownloadAsync(audioStreamInfo, audioFilePath);
-
+        Console.WriteLine("Download finalizado");
         ConvertToMp3(audioFilePath, mp3FilePath);
-
+        Console.WriteLine("Converção finalizado");
         File.Delete(audioFilePath);
     }
 
     private void ConvertToMp3(string inputPath, string outputPath)
     {
+        Console.WriteLine("Entrou na converção");
         string ffmpegPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libs", "FFmpeg",
             "ffmpeg-7.1.1-essentials_build", "bin",
             "ffmpeg.exe");
