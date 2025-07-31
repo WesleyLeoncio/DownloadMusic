@@ -162,12 +162,8 @@ public partial class MainWindow
         string audioFilePath = Path.Combine(outputDirectory, $"{safeTitle}.webm");
         string mp3FilePath = Path.Combine(outputDirectory, $"{safeTitle}.mp3");
         
-        //TODO TESTE
-        Console.WriteLine("Processando Musica ");
         await youtube.Videos.Streams.DownloadAsync(audioStreamInfo, audioFilePath);
-        Console.WriteLine("Download finalizado");
         ConvertToMp3(audioFilePath, mp3FilePath);
-        Console.WriteLine("Converção finalizado");
         File.Delete(audioFilePath);
     }
 
