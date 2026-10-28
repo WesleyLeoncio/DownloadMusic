@@ -26,6 +26,7 @@ namespace DownloadMusic.Windows.Main;
 public partial class MainWindow
 {
     public ObservableCollection<VideoItem> VideoList { get; } = new();
+    private readonly YoutubeClient _youtube = new();
 
     public MainWindow()
     {
@@ -67,13 +68,14 @@ public partial class MainWindow
                 try
                 {
                     item.Status = Emoji.Baixando;
-                    await ProcessVideoAsync(new YoutubeClient(), item.Video);
+                    await ProcessVideoAsync(_youtube, item.Video);
                     int valorAtual = Interlocked.Increment(ref concluido);
                     await AtualizarProgressoDownloadAsync(valorAtual);
                     item.Status = Emoji.Concluido;
                 }
                 catch (Exception ex)
                 {
+                    LogErro($"Erro ao baixar '{item.Video.Title}'", ex);
                     CustomMessageBox.Show($"Erro ao baixar '{item.Video.Title}': {ex.Message}",
                         "Erro", DialogType.Error);
                     item.Status = Emoji.Erro;
@@ -162,33 +164,50 @@ public partial class MainWindow
         string audioFilePath = Path.Combine(outputDirectory, $"{safeTitle}.webm");
         string mp3FilePath = Path.Combine(outputDirectory, $"{safeTitle}.mp3");
         
-        await youtube.Videos.Streams.DownloadAsync(audioStreamInfo, audioFilePath);
-        ConvertToMp3(audioFilePath, mp3FilePath);
-        File.Delete(audioFilePath);
+        try
+        {
+            await youtube.Videos.Streams.DownloadAsync(audioStreamInfo, audioFilePath);
+            await ConvertToMp3Async(audioFilePath, mp3FilePath);
+        }
+        finally
+        {
+            if (File.Exists(audioFilePath))
+                File.Delete(audioFilePath);
+        }
     }
 
-    private void ConvertToMp3(string inputPath, string outputPath)
+    private static async Task ConvertToMp3Async(string inputPath, string outputPath)
     {
-        Console.WriteLine("Entrou na converção");
         string ffmpegPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libs", "FFmpeg",
-            "ffmpeg-7.1.1-essentials_build", "bin",
-            "ffmpeg.exe");
-
-        string arguments = $"-i \"{inputPath}\" -vn -ab 192k -ar 44100 -y \"{outputPath}\"";
-
-        Process process = new Process
+            "ffmpeg-7.1.1-essentials_build", "bin", "ffmpeg.exe");
+ 
+        if (!File.Exists(ffmpegPath))
+            throw new FileNotFoundException("ffmpeg.exe não encontrado.", ffmpegPath);
+ 
+        var startInfo = new ProcessStartInfo
         {
-            StartInfo = new ProcessStartInfo
-            {
-                FileName = ffmpegPath,
-                Arguments = arguments,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            }
+            FileName = ffmpegPath,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
         };
+ 
+        foreach (string arg in new[] { "-i", inputPath, "-vn", "-ab", "192k", "-ar", "44100", "-y", outputPath })
+            startInfo.ArgumentList.Add(arg);
+ 
+        using var process = new Process();
+        process.StartInfo = startInfo;
         process.Start();
-        process.WaitForExit();
+ 
+        // Ler o stderr até o fim antes de esperar a saída evita deadlock
+        string stderr = await process.StandardError.ReadToEndAsync();
+        await process.WaitForExitAsync();
+ 
+        if (process.ExitCode != 0)
+        {
+            string resumo = stderr.Length > 500 ? stderr[^500..] : stderr;
+            throw new InvalidOperationException($"ffmpeg falhou (código {process.ExitCode}): {resumo}");
+        }
     }
 
     private void BtnRemover_Click(object sender, RoutedEventArgs e)
@@ -203,7 +222,7 @@ public partial class MainWindow
 
     private async Task LoadPlaylistAsync(string playlistUrl)
     {
-        YoutubeClient youtube = new YoutubeClient();
+        YoutubeClient youtube = _youtube;
         IReadOnlyList<PlaylistVideo> videos = await youtube.Playlists.GetVideosAsync(playlistUrl);
 
         VideoList.Clear();
@@ -225,7 +244,7 @@ public partial class MainWindow
         VideoList.Clear();
         ShowLoading();
         
-        var youtube = new YoutubeClient();
+        var youtube = _youtube;
         var video = await youtube.Videos.GetAsync(inputUrl);
 
         VideoList.Add(new VideoItem
@@ -324,6 +343,22 @@ public partial class MainWindow
                     MessageBox.Show("Erro ao abrir o link: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+        }
+    }
+    
+    private static void LogErro(string contexto, Exception ex)
+    {
+        string texto = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {contexto}{Environment.NewLine}{ex}{Environment.NewLine}{Environment.NewLine}";
+ 
+        Debug.WriteLine(texto);
+ 
+        try
+        {
+            File.AppendAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "erros.log"), texto);
+        }
+        catch
+        {
+            // Falha ao gravar o log não deve derrubar o app
         }
     }
     
