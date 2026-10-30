@@ -4,7 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
-        Title="YouTube Music Download" Height="850"
+        Title="YouTube Download" Height="850"
         Width="950"
         ResizeMode="CanResize"
         MinWidth="650"
@@ -19,6 +19,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />  <!-- Pasta destino -->
             <RowDefinition Height="Auto" />  <!-- URL -->
+            <RowDefinition Height="Auto" />  <!-- Formato -->
             <RowDefinition Height="Auto" />  <!-- Progresso -->
             <RowDefinition Height="*" />     <!-- Lista -->
             <RowDefinition Height="Auto" />  <!-- Botão baixar -->
@@ -56,7 +57,7 @@
                 <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
 
-            <Label Content="Url Música/Playlist"
+            <Label Content="Url Vídeo/Playlist"
                    Style="{StaticResource LabelCustomStyle}"
                    Grid.Column="0" />
 
@@ -72,8 +73,36 @@
                     Style="{StaticResource CustomButtonStyle}" />
         </Grid>
 
+        <!-- Formato de saída -->
+        <Grid Grid.Row="2" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="170" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Formato"
+                   Style="{StaticResource LabelCustomStyle}"
+                   Grid.Column="0" />
+
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                <RadioButton x:Name="RbAudio"
+                             GroupName="Formato"
+                             Content="🎵 Áudio (MP3)"
+                             IsChecked="True"
+                             Margin="0,0,30,0"
+                             Style="{StaticResource CustomRadioButtonStyle}" />
+
+                <RadioButton x:Name="RbVideo"
+                             GroupName="Formato"
+                             Content="🎬 Vídeo completo (MKV, todos os idiomas)"
+                             Style="{StaticResource CustomRadioButtonStyle}" />
+            </StackPanel>
+        </Grid>
+
         <!-- Progresso -->
-        <Grid Grid.Row="2" Height="30" Margin="0,0,0,10">
+        <Grid Grid.Row="3" Height="30" Margin="0,0,0,10">
             <ProgressBar x:Name="DownloadProgressBar"
                          Style="{StaticResource CustomProgressBarStyle}" />
 
@@ -84,7 +113,7 @@
 
         <!-- Lista -->
         <DataGrid x:Name="DgvMusicas"
-                  Grid.Row="3"
+                  Grid.Row="4"
                   ItemsSource="{Binding VideoList}"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
@@ -118,12 +147,12 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
 
-                <!-- Música -->
-                <DataGridTemplateColumn Header="🎵 Música" Width="*">
+                <!-- Título -->
+                <DataGridTemplateColumn Header="🎬 Título" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Titulo}"
-                                       MouseLeftButtonUp="AbrirLinkMusica_Click"
+                                       MouseLeftButtonUp="AbrirLink_Click"
                                        Cursor="Hand"
                                        FontWeight="SemiBold"
                                        VerticalAlignment="Center"
@@ -165,7 +194,7 @@
 
                                     <Button.ToolTip>
                                         <ToolTip Style="{StaticResource ActionButtonTooltipStyle}">
-                                            <TextBlock Text="Remover Música"
+                                            <TextBlock Text="Remover da lista"
                                                        TextWrapping="Wrap"
                                                        FontWeight="SemiBold"
                                                        MaxWidth="300" />
@@ -188,7 +217,7 @@
               Panel.ZIndex="999"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch"
-              Grid.Row="0" Grid.RowSpan="5">
+              Grid.Row="0" Grid.RowSpan="6">
 
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -203,8 +232,8 @@
 
         <!-- Botão baixar -->
         <Button x:Name="BtnDownload"
-                Grid.Row="4"
-                Content="🎵 Baixar Músicas"
+                Grid.Row="5"
+                Content="⬇ Baixar"
                 Click="BtnDownload_Click"
                 IsEnabled="False"
                 Style="{StaticResource CustomButtonDownloadStyle}" />
