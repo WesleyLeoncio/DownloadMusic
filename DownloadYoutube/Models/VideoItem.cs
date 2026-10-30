@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using YoutubeExplode.Videos;
 
-namespace DownloadMusic.models;
+namespace DownloadYoutube.models;
 
 public class VideoItem : INotifyPropertyChanged
 {

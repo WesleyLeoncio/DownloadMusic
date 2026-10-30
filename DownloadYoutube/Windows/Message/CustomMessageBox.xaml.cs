@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using DownloadMusic.Others.Enums;
+using DownloadYoutube.Others.Enums;
 
-namespace DownloadMusic.Windows.Message;
+namespace DownloadYoutube.Windows.Message;
 
 public partial class CustomMessageBox
 {

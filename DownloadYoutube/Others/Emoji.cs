@@ -1,4 +1,4 @@
-﻿namespace DownloadMusic.Others;
+﻿namespace DownloadYoutube.Others;
 
 public static class Emoji
 {

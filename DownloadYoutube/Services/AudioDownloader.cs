@@ -3,7 +3,7 @@ using YoutubeExplode;
 using YoutubeExplode.Videos;
 using YoutubeExplode.Videos.Streams;
 
-namespace DownloadMusic.Services;
+namespace DownloadYoutube.Services;
 
 /// <summary>
 /// Baixa só o áudio e converte para MP3.

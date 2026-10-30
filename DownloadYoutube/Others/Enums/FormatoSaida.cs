@@ -1,4 +1,4 @@
-namespace DownloadMusic.Others.Enums;
+namespace DownloadYoutube.Others.Enums;
 
 public enum FormatoSaida
 {

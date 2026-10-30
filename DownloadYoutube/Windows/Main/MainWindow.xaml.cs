@@ -6,11 +6,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using DownloadMusic.models;
-using DownloadMusic.Others;
-using DownloadMusic.Others.Enums;
-using DownloadMusic.Services;
-using DownloadMusic.Windows.Message;
+using DownloadYoutube.models;
+using DownloadYoutube.Others;
+using DownloadYoutube.Others.Enums;
+using DownloadYoutube.Services;
+using DownloadYoutube.Windows.Message;
 using Ookii.Dialogs.Wpf;
 using WpfAnimatedGif;
 using YoutubeExplode;
@@ -18,7 +18,7 @@ using YoutubeExplode.Common;
 using YoutubeExplode.Playlists;
 using YoutubeExplode.Videos;
 
-namespace DownloadMusic.Windows.Main;
+namespace DownloadYoutube.Windows.Main;
 
 /// <summary>
 /// Só interface: lê os controles, mostra mensagens e delega o download para um IDownloader.

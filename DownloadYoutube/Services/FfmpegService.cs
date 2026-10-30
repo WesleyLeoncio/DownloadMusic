@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace DownloadMusic.Services;
+namespace DownloadYoutube.Services;
 
 /// <summary>
 /// Uma trilha de áudio já baixada, pronta para entrar no arquivo final.

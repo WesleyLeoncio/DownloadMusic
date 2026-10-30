@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownloadMusic", "DownloadMusic\DownloadMusic.csproj", "{CECD37B4-5295-4949-A507-F9D77226FBE7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownloadYoutube", "DownloadYoutube\DownloadYoutube.csproj", "{CECD37B4-5295-4949-A507-F9D77226FBE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

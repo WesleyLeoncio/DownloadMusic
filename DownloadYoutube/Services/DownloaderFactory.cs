@@ -1,7 +1,7 @@
-using DownloadMusic.Others.Enums;
+using DownloadYoutube.Others.Enums;
 using YoutubeExplode;
 
-namespace DownloadMusic.Services;
+namespace DownloadYoutube.Services;
 
 /// <summary>
 /// Único lugar que sabe qual classe corresponde a cada formato.

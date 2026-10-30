@@ -1,11 +1,11 @@
-﻿<Application x:Class="DownloadMusic.App"
+﻿<Application x:Class="DownloadYoutube.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="Windows/Main/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/DownloadMusic;component/Windows/Main/Styles/MainWindowStyle.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/DownloadYoutube;component/Windows/Main/Styles/MainWindowStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

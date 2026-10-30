@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace DownloadMusic.Services;
+namespace DownloadYoutube.Services;
 
 /// <summary>
 /// Utilitários de arquivo compartilhados pelos downloaders.
@@ -15,7 +15,7 @@ public static class ArquivoUtil
     // Pasta temporária única por vídeo (evita conflito nos downloads paralelos)
     public static string CriarPastaTemporaria()
     {
-        string tempDir = Path.Combine(Path.GetTempPath(), "DownloadMusic", Guid.NewGuid().ToString("N"));
+        string tempDir = Path.Combine(Path.GetTempPath(), "DownloadYoutube", Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(tempDir);
         return tempDir;
     }

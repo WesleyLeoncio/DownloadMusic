@@ -1,7 +1,7 @@
 using System.Globalization;
 using YoutubeExplode.Videos.Streams;
 
-namespace DownloadMusic.Services;
+namespace DownloadYoutube.Services;
 
 /// <summary>
 /// Regras para escolher as trilhas de áudio de um vídeo (uma por idioma).

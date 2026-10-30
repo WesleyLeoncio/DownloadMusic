@@ -3,7 +3,7 @@ using YoutubeExplode;
 using YoutubeExplode.Videos;
 using YoutubeExplode.Videos.Streams;
 
-namespace DownloadMusic.Services;
+namespace DownloadYoutube.Services;
 
 /// <summary>
 /// Baixa o vídeo completo com uma trilha de áudio por idioma e junta tudo em um MKV.

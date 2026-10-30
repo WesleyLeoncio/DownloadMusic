@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace DownloadMusic;
+namespace DownloadYoutube;
 
 /// <summary>
 /// Interaction logic for App.xaml

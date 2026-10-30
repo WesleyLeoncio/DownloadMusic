@@ -1,6 +1,6 @@
 using YoutubeExplode.Videos;
 
-namespace DownloadMusic.Services;
+namespace DownloadYoutube.Services;
 
 public interface IDownloader
 {
